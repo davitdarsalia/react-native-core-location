@@ -1,14 +1,10 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(CoreLocation, NSObject)
+@interface RCT_EXTERN_MODULE(CoreLocation, RCTEventEmitter)
 
-RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-
-+ (BOOL)requiresMainQueueSetup
-{
-  return NO;
-}
+RCT_EXTERN_METHOD(requestWhenInUseAuthorization)
+RCT_EXTERN_METHOD(startUpdatingLocation)
+RCT_EXTERN_METHOD(stopUpdatingLocation)
 
 @end
