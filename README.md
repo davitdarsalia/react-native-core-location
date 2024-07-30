@@ -11,13 +11,7 @@ npm install react-native-core-location
 ## Usage
 
 
-```js
-import { multiply } from 'react-native-core-location';
 
-// ...
-
-const result = await multiply(3, 7);
-```
 
 
 ## Contributing
@@ -31,3 +25,4 @@ MIT
 ---
 
 Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+# react-native-core-location
