@@ -1,30 +1,25 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-core-location';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { useCoreLocation } from 'react-native-core-location';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
-
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const { location, startUpdatingLocation, stopUpdatingLocation } =
+    useCoreLocation();
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
+    <View style={styles.wrapper}>
+      <Text>Latitude: {location.latitude}</Text>
+      <Text>Longitude: {location.longitude}</Text>
+
+      <Button title={'Start'} onPress={startUpdatingLocation} />
+      <Button title={'Stop'} onPress={stopUpdatingLocation} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });
