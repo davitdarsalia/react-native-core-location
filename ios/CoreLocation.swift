@@ -28,6 +28,19 @@ class CoreLocation: RCTEventEmitter, LocationManagerDelegate {
     func stopUpdatingLocation() {
         LocationManager.shared.stopUpdatingLocation()
     }
+    
+    @objc
+    func getCurrentLocation(_ resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+        if let coordinate = LocationManager.shared.getCurrentLocation() {
+            resolve([
+                           "latitude": coordinate.latitude,
+                           "longitude": coordinate.longitude
+                       ])
+        } else {
+            let error = NSError(domain: "", code: 500, userInfo: nil)
+            reject("no_location", "Unable to detect location", error)
+        }
+    }
 
     func didUpdateLocation(_ location: CLLocation) {
         sendEvent(withName: "onLocationUpdate", body: [
