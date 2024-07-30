@@ -18,6 +18,9 @@ const CoreLocation = NativeModules.CoreLocation
       }
     );
 
+export const LocationListener = 'onLocationUpdate';
+export type Location = CLLocation;
+
 export const requestWhenInUseAuthorization = (): void => {
   return CoreLocation.requestWhenInUseAuthorization();
 };
@@ -30,8 +33,9 @@ export const stopUpdatingLocation = () => {
   return CoreLocation.stopUpdatingLocation();
 };
 
-export type Location = CLLocation;
-export const LocationListener = 'onLocationUpdate';
+export const getCurrentLocation = () => {
+  return CoreLocation.getCurrentLocation();
+};
 
 export const useCoreLocation = (defaultLocation?: Location) => {
   const [location, setLocation] = useState<Location>(
@@ -57,9 +61,14 @@ export const useCoreLocation = (defaultLocation?: Location) => {
     };
   }, []);
 
+  useEffect(() => {
+    getCurrentLocation().then((loc: Location) => setLocation(loc));
+  }, []);
+
   return {
-    location,
     startUpdatingLocation,
     stopUpdatingLocation,
+    getCurrentLocation,
+    location,
   };
 };
