@@ -1,4 +1,5 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import type { CLLocation, CoreLocationConfig } from './globalTypes';
 import { useEffect, useState } from 'react';
 
 const LINKING_ERROR =
@@ -25,21 +26,21 @@ export const requestWhenInUseAuthorization = (): void => {
   return CoreLocation.requestWhenInUseAuthorization();
 };
 
-export const startUpdatingLocation = () => {
+export const startUpdatingLocation = (): void => {
   return CoreLocation.startUpdatingLocation();
 };
 
-export const stopUpdatingLocation = () => {
+export const stopUpdatingLocation = (): void => {
   return CoreLocation.stopUpdatingLocation();
 };
 
-export const getCurrentLocation = () => {
+export const fetchCurrentLocation = () => {
   return CoreLocation.getCurrentLocation();
 };
 
-export const useCoreLocation = (defaultLocation?: Location) => {
+export const useCoreLocation = (config: CoreLocationConfig) => {
   const [location, setLocation] = useState<Location>(
-    defaultLocation ?? {
+    config.defaultLocation ?? {
       latitude: null,
       longitude: null,
     }
@@ -62,8 +63,12 @@ export const useCoreLocation = (defaultLocation?: Location) => {
   }, []);
 
   useEffect(() => {
-    getCurrentLocation().then((loc: Location) => setLocation(loc));
+    fetchCurrentLocation().then((loc: Location) => setLocation(loc));
   }, []);
+
+  const getCurrentLocation = () => {
+    fetchCurrentLocation().then((loc: Location) => setLocation(loc));
+  };
 
   return {
     startUpdatingLocation,
