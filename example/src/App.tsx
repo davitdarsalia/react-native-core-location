@@ -13,15 +13,15 @@ export default function App() {
     distanceFilterInMeters: 100,
     fetchLocationOnMount: true,
     defaultLocation: {
-      latitude: 45.412,
-      longitude: 32.123,
+      latitude: null,
+      longitude: null,
     },
   });
 
   return (
     <View style={styles.wrapper}>
-      <Text>Latitude: {location.latitude}</Text>
-      <Text>Longitude: {location.longitude}</Text>
+      <Text>Latitude: {location?.latitude ?? '33.22'}</Text>
+      <Text>Longitude: {location?.longitude ?? '41.23'}</Text>
 
       <Button title={'Start'} onPress={startUpdatingLocation} />
       <Button title={'Stop'} onPress={stopUpdatingLocation} />
