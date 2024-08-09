@@ -41,8 +41,8 @@ export const fetchCurrentLocation = () => {
 export const useCoreLocation = (config: CoreLocationConfig) => {
   const [location, setLocation] = useState<Location>(
     config.defaultLocation ?? {
-      latitude: null,
-      longitude: null,
+      latitude: 45.412,
+      longitude: 32.123,
     }
   );
 
@@ -67,13 +67,20 @@ export const useCoreLocation = (config: CoreLocationConfig) => {
   }, []);
 
   const getCurrentLocation = () => {
-    fetchCurrentLocation().then((loc: Location) => setLocation(loc));
+    fetchCurrentLocation().then((loc: Location) => {
+      setLocation(loc);
+    });
+  };
+
+  const multiply = () => {
+    CoreLocation.multiply(1, 10).then((r) => console.log(r));
   };
 
   return {
     startUpdatingLocation,
     stopUpdatingLocation,
     getCurrentLocation,
+    multiply,
     location,
   };
 };
